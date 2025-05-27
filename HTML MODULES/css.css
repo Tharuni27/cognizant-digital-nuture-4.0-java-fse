@@ -1,0 +1,115 @@
+/* Reset styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styles */
+body {
+    background-color: #f4f4f4; /* Fallback color */
+    background-image: url('background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: 'Roboto', sans-serif; /* Google Font */
+    line-height: 1.6;
+}
+
+/* Header styles */
+#mainHeader {
+    background-color: #007BFF;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Section headers */
+h2 {
+    color: #333;
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Event card styles */
+.eventCard {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin: 15px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Grouped styles for h3 and p */
+h3, p {
+    color: #555;
+    margin-bottom: 10px;
+}
+
+/* Link styles */
+a:link {
+    color: #007BFF;
+    text-decoration: none;
+}
+a:hover {
+    color: #0056b3;
+}
+a:visited {
+    color: #6c757d;
+}
+a:active {
+    color: #003f7f;
+}
+
+/* List styles */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+li {
+    margin: 5px 0;
+}
+
+/* Table styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Box model adjustments */
+.eventCard {
+    margin: 20px;
+    padding: 20px;
+    border: 2px solid #ccc;
+    outline: 2px dashed #007BFF;
+}
+
+/* Multi-column layout */
+.news-article {
+    column-count: 2;
+    column-gap: 30px;
+    column-rule: 1px solid gray;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    nav ul {
+        display: flex;
+        flex-direction: column;
+    }
+    img {
+        width: 100%;
+        height: auto;
+    }
+    body {
+        font-size: 90%;
+    }
+}

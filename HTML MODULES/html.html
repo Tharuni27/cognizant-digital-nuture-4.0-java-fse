@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Community Event Portal</title>
+    <style>
+        /* Internal CSS for Welcome Banner */
+        #welcomeBanner {
+            background-color: blue;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        .highlight {
+            font-weight: bold;
+            color: green;
+        }
+        .image-border {
+            border: 2px solid black;
+            padding: 5px;
+        }
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        table img {
+            width: 150px;
+            height: 100px;
+        }
+        form {
+            margin: 20px auto;
+            width: 50%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="#home">Home</a> |
+        <a href="#events">Events</a> |
+        <a href="#contact">Contact</a> |
+        <a href="help.html" target="_blank">Help</a>
+    </nav>
+
+    <!-- Welcome Banner -->
+    <div id="welcomeBanner">
+        Welcome to the Local Community Event Portal!
+        <span style="color: red; font-weight: bold;">Special Offer: Register now!</span>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Events Section -->
+        <section id="events">
+            <h2>Community Events</h2>
+            <table>
+                <caption>Past Event Highlights</caption>
+                <tr>
+                    <td><img src="event1.jpg" alt="Event 1" title="Event 1" class="image-border"></td>
+                    <td><img src="event2.jpg" alt="Event 2" title="Event 2" class="image-border"></td>
+                    <td><img src="event3.jpg" alt="Event 3" title="Event 3" class="image-border"></td>
+                </tr>
+                <tr>
+                    <td><img src="event4.jpg" alt="Event 4" title="Event 4" class="image-border"></td>
+                    <td><img src="event5.jpg" alt="Event 5" title="Event 5" class="image-border"></td>
+                    <td><img src="event6.jpg" alt="Event 6" title="Event 6" class="image-border"></td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Registration Form -->
+        <section id="registration">
+            <h2>Event Registration</h2>
+            <form onsubmit="showConfirmation(event)">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required autofocus><br><br>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required><br><br>
+
+                <label for="date">Event Date:</label>
+                <input type="date" id="date" name="date" required><br><br>
+
+                <label for="eventType">Event Type:</label>
+                <select id="eventType" name="eventType" onchange="savePreference()">
+                    <option value="music">Music</option>
+                    <option value="sports">Sports</option>
+                    <option value="art">Art</option>
+                </select><br><br>
+
+                <label for="message">Message:</label><br>
+                <textarea id="message" name="message" placeholder="Enter your message" onkeyup="countCharacters()"></textarea><br>
+                <span id="charCount">0</span> characters<br><br>
+
+                <button type="submit">Register</button>
+                <output id="confirmation"></output>
+            </form>
+        </section>
+
+        <!-- Feedback Section -->
+        <section id="feedback">
+            <h2>Event Feedback</h2>
+            <label for="phone">Phone Number:</label>
+            <input type="text" id="phone" onblur="validatePhone()" placeholder="Enter your phone number"><br><br>
+
+            <button onclick="findNearbyEvents()">Find Nearby Events</button>
+            <p id="location"></p>
+        </section>
+
+        <!-- Video Section -->
+        <section id="video">
+            <h2>Event Promo Video</h2>
+            <video controls oncanplay="videoReady()">
+                <source src="promo.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <p id="videoMessage"></p>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2023 Local Community Event Portal</p>
+    </footer>
+
+    <script>
+        function showConfirmation(event) {
+            event.preventDefault();
+            document.getElementById('confirmation').textContent = "Registration submitted successfully!";
+        }
+
+        function countCharacters() {
+            const message = document.getElementById('message').value;
+            document.getElementById('charCount').textContent = message.length;
+        }
+
+        function validatePhone() {
+            const phone = document.getElementById('phone').value;
+            if (!/^\d{10}$/.test(phone)) {
+                alert("Please enter a valid 10-digit phone number.");
+            }
+        }
+
+        function savePreference() {
+            const eventType = document.getElementById('eventType').value;
+            localStorage.setItem('preferredEventType', eventType);
+        }
+
+        function findNearbyEvents() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        document.getElementById('location').textContent = 
+                            `Latitude: ${position.coords.latitude}, Longitude: ${position.coords.longitude}`;
+                    },
+                    (error) => {
+                        document.getElementById('location').textContent = "Unable to retrieve location.";
+                    },
+                    { enableHighAccuracy: true }
+                );
+            } else {
+                document.getElementById('location').textContent = "Geolocation is not supported by your browser.";
+            }
+        }
+
+        function videoReady() {
+            document.getElementById('videoMessage').textContent = "Video ready to play!";
+        }
+
+        window.onload = function() {
+            const savedEventType = localStorage.getItem('preferredEventType');
+            if (savedEventType) {
+                document.getElementById('eventType').value = savedEventType;
+            }
+        };
+
+        window.onbeforeunload = function() {
+            return "You have unsaved changes. Are you sure you want to leave?";
+        };
+    </script>
+</body>
+</html></section>
